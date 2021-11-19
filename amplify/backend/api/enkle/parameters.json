@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "enkle",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authenkle9c3df51a",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

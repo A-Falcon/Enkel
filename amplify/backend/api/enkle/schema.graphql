@@ -1,0 +1,61 @@
+type User
+  @model(subscriptions: null)
+  @auth(rules: [{ allow: owner }])
+  @key(name: "byEmail", fields: ["email"]) {
+  id: ID!
+  email: AWSEmail!
+  tasks: [Task] @connection(keyName: "byUser", fields: ["id"])
+  taskLists: [TaskList] @connection(keyName: "byUser", fields: ["id"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Task
+  @model
+  @auth(rules: [{ allow: owner }])
+  @key(name: "byUser", fields: ["userId", "priority", "title", "id"])
+  @key(name: "byTitle", fields: ["userId", "title", "id"])
+  @key(name: "byCreatedAt", fields: ["userId", "createdAt", "priority", "title", "id"])
+  @key(name: "updatedRecently", fields: ["userId", "updatedAt", "priority", "dueAt", "title", "id"])
+  @key(name: "byPriority", fields: ["userId", "priority", "dueAt", "title", "id"])
+  @key(
+    name: "byTaskList"
+    fields: ["userId", "listId", "status", "priority", "dueAt", "title", "id"]
+  ) {
+  id: ID!
+  title: String!
+  status: Status!
+  notes: String!
+  priority: Int!
+  dueAt: String!
+  list: TaskList! @connection
+  listId: String!
+  user: User! @connection
+  userId: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type TaskList
+  @model
+  @key(name: "byUser", fields: ["userId", "priority", "name", "id"])
+  @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  priority: Int!
+  tasks: [Task!]! @connection(keyName: "byTaskList", fields: ["id"])
+  user: User! @connection
+  userId: ID!
+}
+
+enum Status {
+  INACTIVE
+  ACTIVE
+  COMPLETED
+}
+
+# type Label {
+#   id: ID!
+#   name: String!
+#   color: String!
+# }

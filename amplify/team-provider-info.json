@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-enkle-dev-175329-authRole",
+      "UnauthRoleArn": "arn:aws:iam::198511558453:role/amplify-enkle-dev-175329-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::198511558453:role/amplify-enkle-dev-175329-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-enkle-dev-175329-deployment",
+      "UnauthRoleName": "amplify-enkle-dev-175329-unauthRole",
+      "StackName": "amplify-enkle-dev-175329",
+      "StackId": "arn:aws:cloudformation:us-west-2:198511558453:stack/amplify-enkle-dev-175329/19747100-7643-11eb-9fbf-0af410a5cb31",
+      "AmplifyAppId": "d31m0hs0gj814w"
+    },
+    "categories": {
+      "auth": {
+        "enkle9c3df51a": {}
+      }
+    }
+  }
+}
