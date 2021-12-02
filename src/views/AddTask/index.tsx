@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components/native'
 import { v4 as uuidv4 } from 'uuid'
+import { Switch } from 'react-native'
+import DatePicker from 'react-native-date-picker'
 
 import AppContext from '~/AppContext'
 
@@ -8,9 +10,14 @@ const AddTask: React.FC = () => {
   const { addTask } = useContext(AppContext)
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
+  const [isEnabled, setIsEnabled] = useState(false)
+  const [date, setDate] = useState(new Date())
 
   function onSubmit() {
-    addTask({ id: uuidv4(), completed: false, title, notes })
+    const taskTitle = title.trim()
+    if (taskTitle.length === 0) return
+
+    addTask({ id: uuidv4(), completed: false, title: taskTitle, notes })
     setTitle('')
     setNotes('')
   }
@@ -33,6 +40,17 @@ const AddTask: React.FC = () => {
         returnKeyType="done"
         onSubmitEditing={onSubmit}
       />
+      <DateDiv>
+        <Text>Date</Text>
+        <StyledSwitch
+          trackColor={{ false: '#767577', true: '#81b0ff' }}
+          thumbColor={isEnabled ? 'pink' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={() => setIsEnabled(!isEnabled)}
+          value={isEnabled}
+        />
+      </DateDiv>
+      {/* {isEnabled && <DatePicker date={date} onDateChange={setDate} />} */}
       <Button onPress={onSubmit}>
         <Text>Add</Text>
       </Button>
@@ -47,13 +65,23 @@ const Wrapper = styled.View`
   border-radius: 10px;
   padding: ${(props) => props.theme.spacing.unit * 0.15}px;
 `
+const DateDiv = styled.View`
+  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.primary};
+  padding: ${(props) => props.theme.spacing.unit * 0.25}px;
+  border-radius: ${(props) => props.theme.spacing.borderRadius};
+  margin-bottom: ${(props) => props.theme.spacing.unit * 0.25}px;
+  margin-top: ${(props) => props.theme.spacing.unit * 0.25}px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+const StyledSwitch = styled(Switch)``
 
 const TextInput = styled.TextInput`
   color: ${(props) => props.theme.colors.text};
   background-color: ${(props) => props.theme.colors.primary};
   height: ${(props) => props.theme.spacing.unit}px;
-  /* border-color: ${(props) => props.theme.colors.text}; */
-  /* border-width: ${(props) => props.theme.spacing.borderWidth}; */
   padding: ${(props) => props.theme.spacing.unit * 0.25}px;
   border-radius: ${(props) => props.theme.spacing.borderRadius};
   margin-bottom: ${(props) => props.theme.spacing.unit * 0.15}px;
@@ -69,7 +97,8 @@ const Button = styled.TouchableOpacity`
 `
 
 const Text = styled.Text`
-  font-size: 16px;
+  font-size: 15px;
+
   color: ${(p) => p.theme.colors.text};
 `
 

@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { AntDesign } from '@expo/vector-icons'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import CheckBox from '~/components/Complete'
 
 export interface TaskItem {
   id: string
@@ -15,32 +17,43 @@ interface TaskProps {
   removeTask: VoidFunction
 }
 
-const Task: React.FC<TaskProps> = ({ taskData, removeTask }) => {
+const Task: React.FC<TaskProps> = ({ taskData }) => {
   return (
     <Wrapper>
-      <TitleText>{taskData.title}</TitleText>
-      <NoteText>{taskData.notes}</NoteText>
-      <Text>
-        <AntDesign name="calendar" size={24} color="#cbc4bf" /> Due Today
-      </Text>
-      <Delete onPress={removeTask} />
+      <ContentDiv>
+        <TitleText>{taskData.title}</TitleText>
+        <NoteText>{taskData.notes}</NoteText>
+        <Text>
+          <AntDesign name="calendar" size={24} color="#cbc4bf" /> Due Today
+        </Text>
+      </ContentDiv>
+      <Div>
+        <CheckBox />
+      </Div>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.View`
   background-color: ${(props) => props.theme.colors.secondary};
-  border-radius: 10px;
+  border-radius: ${(props) => props.theme.spacing.borderRadius};
   padding: 20px;
   margin: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  flex-direction: row;
   /* border-width: 0.2px; */
   /* border-color: ${(props) => props.theme.colors.text}; */
 `
-const Delete = styled.TouchableOpacity`
-  height: 20px;
-  width: 20px;
-  align-self: flex-end;
-  background-color: pink;
+
+const ContentDiv = styled.View`
+  flex: 1;
+  flex-direction: column;
+`
+const Div = styled.View`
+  flex: 1;
+  flex-direction: row-reverse;
+  align-self: center;
 `
 const Text = styled.Text`
   font-size: 16px;
