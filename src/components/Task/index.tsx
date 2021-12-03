@@ -24,7 +24,12 @@ const Task: React.FC<TaskProps> = ({ taskData }) => {
         <TitleText>{taskData.title}</TitleText>
         <NoteText>{taskData.notes}</NoteText>
         <Text>
-          <AntDesign name="calendar" size={24} color="#cbc4bf" /> Due Today
+          {taskData.dueAt && (
+            <>
+              <AntDesign name="calendar" size={24} color="#cbc4bf" />
+              {new Date(taskData.dueAt).toDateString()}
+            </>
+          )}
         </Text>
       </ContentDiv>
       <Div>

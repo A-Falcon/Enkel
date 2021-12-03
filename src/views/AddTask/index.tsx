@@ -1,36 +1,63 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components/native'
 import { v4 as uuidv4 } from 'uuid'
-import { Switch } from 'react-native'
-import DatePicker from 'react-native-date-picker'
+import { Switch, Keyboard } from 'react-native'
+import RNDateTimePicker from '@react-native-community/datetimepicker'
 
 import AppContext from '~/AppContext'
+import { TaskItem } from '~/components/Task'
 
-const AddTask: React.FC = () => {
+interface AddTaskProps {
+  closeModal: () => void
+}
+
+const AddTask: React.FC<AddTaskProps> = ({ closeModal }) => {
   const { addTask } = useContext(AppContext)
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
   const [isEnabled, setIsEnabled] = useState(false)
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState<null | string>(null)
 
   function onSubmit() {
     const taskTitle = title.trim()
     if (taskTitle.length === 0) return
 
-    addTask({ id: uuidv4(), completed: false, title: taskTitle, notes })
+    const task: TaskItem = {
+      id: uuidv4(),
+      completed: false,
+      title: taskTitle,
+      notes
+    }
+
+    if (date) {
+      console.log('we here')
+      task.dueAt = date
+    }
+
+    addTask(task)
+
     setTitle('')
     setNotes('')
+    setDate(null)
   }
 
   return (
     <Wrapper>
+      <ButtonWrapper>
+        <Button onPress={closeModal}>
+          <Text>cancel</Text>
+        </Button>
+        <Button onPress={onSubmit}>
+          <Text>Add</Text>
+        </Button>
+      </ButtonWrapper>
       <TextInput
         value={title}
         onChangeText={setTitle}
         placeholder="Task Name"
         placeholderTextColor="#cbc4bf"
         returnKeyType="done"
-        onSubmitEditing={onSubmit}
+        // onSubmitEditing={onSubmit}
       />
       <TextInput
         value={notes}
@@ -38,7 +65,7 @@ const AddTask: React.FC = () => {
         placeholder="Add notes..."
         placeholderTextColor="#cbc4bf"
         returnKeyType="done"
-        onSubmitEditing={onSubmit}
+        // onSubmitEditing={onSubmit}
       />
       <DateDiv>
         <Text>Date</Text>
@@ -46,24 +73,44 @@ const AddTask: React.FC = () => {
           trackColor={{ false: '#767577', true: '#81b0ff' }}
           thumbColor={isEnabled ? 'pink' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
-          onValueChange={() => setIsEnabled(!isEnabled)}
+          onValueChange={() => {
+            setIsEnabled(!isEnabled)
+            !isEnabled && Keyboard.dismiss()
+          }}
           value={isEnabled}
         />
       </DateDiv>
-      {/* {isEnabled && <DatePicker date={date} onDateChange={setDate} />} */}
-      <Button onPress={onSubmit}>
-        <Text>Add</Text>
-      </Button>
+      {isEnabled && (
+        <RNDateTimePicker
+          testID="dateTimePicker"
+          minimumDate={new Date()}
+          value={date ? new Date(date) : new Date()}
+          mode="date"
+          is24Hour={true}
+          display="spinner"
+          onChange={(event, selectedDate) => {
+            if (selectedDate) {
+              setDate(selectedDate.toISOString())
+            }
+          }}
+          textColor="pink"
+        />
+      )}
     </Wrapper>
   )
 }
 
 const Wrapper = styled.View`
-  height: 500px;
+  height: 475px;
   width: 300px;
   background-color: ${(props) => props.theme.colors.primaryDark};
   border-radius: 10px;
   padding: ${(props) => props.theme.spacing.unit * 0.15}px;
+`
+const ButtonWrapper = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
 `
 const DateDiv = styled.View`
   color: ${(props) => props.theme.colors.text};

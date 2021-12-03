@@ -75,9 +75,12 @@ export default function App() {
               <Overlay
                 isVisible={modalVisible}
                 onBackdropPress={() => setModalVisible(false)}
-                overlayStyle={{ padding: 0, backgroundColor: 'transparent' }}
+                overlayStyle={{
+                  padding: 0,
+                  backgroundColor: 'transparent'
+                }}
               >
-                <AddTask />
+                <AddTask closeModal={() => setModalVisible(false)} />
               </Overlay>
               <FloatingActionButton onPress={() => setModalVisible(true)} />
             </SafeAreaView>

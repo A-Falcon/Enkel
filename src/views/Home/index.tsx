@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
+import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 
@@ -11,25 +11,44 @@ const Home: React.FC = () => {
   const { tasks, removeTask } = useContext(AppContext)
 
   const renderRightActions = (taskId: string, progress: any, dragX: any) => {
-    const trans = dragX.interpolate({
-      inputRange: [0, 50, 100, 101],
-      outputRange: [-20, 0, 0, 1]
-    })
+    // const trans = dragX.interpolate({
+    //   inputRange: [0, 50, 100, 101],
+    //   outputRange: [-20, 0, 0, 1]
+    // })
 
     return (
-      <RectButton
+      <View
         style={{
-          backgroundColor: '#e64c56',
-          borderRadius: 15,
-          width: 100,
+          width: 200,
           marginLeft: 0,
           marginRight: 10,
           marginTop: 6,
-          marginBottom: 6
-          // margin: '6px, 6px, 6px, 0px'
+          marginBottom: 6,
+          flexDirection: 'row',
+          borderRadius: 15,
+          overflow: 'hidden'
         }}
-        onPress={() => removeTask(taskId)}
-      ></RectButton>
+      >
+        <RectButton
+          style={{
+            backgroundColor: '#e64c56',
+            borderRadius: 15,
+            // margin: '6px, 6px, 6px, 0px'
+            flex: 1,
+            marginRight: 10
+          }}
+          onPress={() => removeTask(taskId)}
+        />
+        <RectButton
+          style={{
+            backgroundColor: 'blue',
+            borderRadius: 15,
+            flex: 1
+            // margin: '6px, 6px, 6px, 0px'
+          }}
+          onPress={() => console.log('poop')}
+        />
+      </View>
     )
   }
 
@@ -61,6 +80,11 @@ const Home: React.FC = () => {
 }
 
 const StyledSwipeable = styled(Swipeable)``
+
+const ButtonWrapper = styled.View`
+  background-color: transparent;
+  flex: 1;
+`
 
 const Wrapper = styled.ScrollView`
   flex: 1;
