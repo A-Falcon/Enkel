@@ -15,9 +15,10 @@ export interface TaskItem {
 interface TaskProps {
   taskData: TaskItem
   removeTask: VoidFunction
+  checkCompleted: VoidFunction
 }
 
-const Task: React.FC<TaskProps> = ({ taskData }) => {
+const Task: React.FC<TaskProps> = ({ taskData, checkCompleted }) => {
   return (
     <Wrapper>
       <ContentDiv>
@@ -33,7 +34,7 @@ const Task: React.FC<TaskProps> = ({ taskData }) => {
         </Text>
       </ContentDiv>
       <Div>
-        <CheckBox />
+        <CheckBox checked={taskData.completed} onPress={checkCompleted} />
       </Div>
     </Wrapper>
   )

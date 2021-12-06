@@ -17,11 +17,13 @@ import Home from './src/views/Home'
 import AppContext from '~/AppContext'
 import AddTask from '~/views/AddTask'
 import FloatingActionButton from '~/components/FloatingActionButton'
+import { AntDesign } from '@expo/vector-icons'
 
 const TASKS_KEY = 'TASKS'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
+  const [taskIdToEdit, setTaskIdToEdit] = useState<string | null>(null)
   const [tasks, setTasks] = useState<TaskItem[]>([
     { id: '1', title: 'task 1', notes: '', completed: true },
     { id: '2', title: 'task 2', notes: '', completed: false },
@@ -49,23 +51,56 @@ export default function App() {
   }
 
   useEffect(() => {
-    AsyncStorage.removeItem(TASKS_KEY)
+    // AsyncStorage.removeItem(TASKS_KEY) // for testing
     getTasksFromStorage()
   }, [])
 
   async function addTask(task: TaskItem) {
     const newTasks = [...tasks, task]
-    console.log('new Task')
-    console.log(task)
+
     setTasks(newTasks)
 
     await setTasksOnStorage(newTasks)
   }
 
-  // console.log(tasks)
+  const openEditModal: AppContext['openEditModal'] = (taskId) => {
+    setTaskIdToEdit(taskId)
+    setModalVisible(true)
+  }
+
+  const saveTasks = () => setTasksOnStorage(tasks)
+  const closeTaskModal = () => {
+    setModalVisible(false)
+    setTaskIdToEdit(null)
+  }
+
+  const checkCompleted: AppContext['checkCompleted'] = (taskId) => {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId)
+    if (taskIndex === -1) return
+
+    const oldTask = tasks[taskIndex]
+
+    const updatedTask: TaskItem = { ...oldTask, completed: !oldTask.completed }
+    tasks[taskIndex] = updatedTask
+
+    const updatedTaskList = [...tasks]
+    setTasks(updatedTaskList)
+    setTasksOnStorage(updatedTaskList)
+  }
 
   return (
-    <AppContext.Provider value={{ tasks, addTask, removeTask }}>
+    <AppContext.Provider
+      value={{
+        tasks,
+        addTask,
+        removeTask,
+        taskModalOpen: modalVisible,
+        closeTaskModal,
+        openEditModal,
+        saveTasks,
+        checkCompleted
+      }}
+    >
       <ThemeProvider theme={theme}>
         <NativeRouter>
           <BackButton>
@@ -74,13 +109,16 @@ export default function App() {
               <Routes />
               <Overlay
                 isVisible={modalVisible}
-                onBackdropPress={() => setModalVisible(false)}
+                onBackdropPress={closeTaskModal}
                 overlayStyle={{
                   padding: 0,
                   backgroundColor: 'transparent'
                 }}
               >
-                <AddTask closeModal={() => setModalVisible(false)} />
+                <AddTask
+                  closeModal={closeTaskModal}
+                  taskIdToEdit={taskIdToEdit}
+                />
               </Overlay>
               <FloatingActionButton onPress={() => setModalVisible(true)} />
             </SafeAreaView>

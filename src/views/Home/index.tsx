@@ -6,9 +6,13 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 import Task, { TaskItem } from '~/components/Task'
 import AppContext from '~/AppContext'
+import { withTheme } from 'react-native-elements'
+import { AntDesign, Feather, FontAwesome } from '@expo/vector-icons'
 
-const Home: React.FC = () => {
-  const { tasks, removeTask } = useContext(AppContext)
+const Home: React.FC<TaskItem> = () => {
+  const { tasks, removeTask, openEditModal, checkCompleted } = useContext(
+    AppContext
+  )
 
   const renderRightActions = (taskId: string, progress: any, dragX: any) => {
     // const trans = dragX.interpolate({
@@ -35,19 +39,31 @@ const Home: React.FC = () => {
             borderRadius: 15,
             // margin: '6px, 6px, 6px, 0px'
             flex: 1,
-            marginRight: 10
+            marginRight: 10,
+            justifyContent: 'center'
           }}
           onPress={() => removeTask(taskId)}
-        />
+        >
+          <Feather
+            name="trash-2"
+            size={50}
+            color="#cbc4bf"
+            style={{
+              alignSelf: 'center'
+            }}
+          />
+        </RectButton>
         <RectButton
           style={{
-            backgroundColor: 'blue',
+            backgroundColor: '#526EAB',
             borderRadius: 15,
-            flex: 1
-            // margin: '6px, 6px, 6px, 0px'
+            flex: 1,
+            justifyContent: 'center'
           }}
-          onPress={() => console.log('poop')}
-        />
+          onPress={() => openEditModal(taskId)}
+        >
+          <EditText>Edit</EditText>
+        </RectButton>
       </View>
     )
   }
@@ -71,7 +87,11 @@ const Home: React.FC = () => {
             // overshootRight={false}
             renderRightActions={(...ra) => renderRightActions(task.id, ...ra)}
           >
-            <Task taskData={task} removeTask={() => removeTask(task.id)} />
+            <Task
+              taskData={task}
+              removeTask={() => removeTask(task.id)}
+              checkCompleted={() => checkCompleted(task.id)}
+            />
           </StyledSwipeable>
         ))
       )}
@@ -112,8 +132,12 @@ const Text = styled.Text`
   color: #cbc4bf;
   opacity: 0.5;
   text-align: center;
-
   margin: ${(props) => props.theme.spacing.unit * 1.5}px;
+`
+const EditText = styled.Text`
+  font-size: 30px;
+  color: #cbc4bf;
+  align-self: center;
 `
 
 export default Home

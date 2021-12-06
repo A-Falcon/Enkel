@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components/native'
 import { v4 as uuidv4 } from 'uuid'
 import { Switch, Keyboard } from 'react-native'
@@ -9,36 +9,59 @@ import { TaskItem } from '~/components/Task'
 
 interface AddTaskProps {
   closeModal: () => void
+  taskIdToEdit: string | null
 }
 
-const AddTask: React.FC<AddTaskProps> = ({ closeModal }) => {
-  const { addTask } = useContext(AppContext)
+const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
+  const { addTask, tasks, saveTasks } = useContext(AppContext)
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
   const [isEnabled, setIsEnabled] = useState(false)
   const [date, setDate] = useState<null | string>(null)
 
+  useEffect(() => {
+    if (taskIdToEdit) {
+      const taskToEditIndex = tasks.findIndex(
+        (task) => task.id === taskIdToEdit
+      )
+      if (taskToEditIndex === -1) return
+
+      const task = tasks[taskToEditIndex]
+      setTitle(task.title)
+      setNotes(task.notes)
+      task.dueAt && setDate(task.dueAt)
+    }
+  }, [])
+
   function onSubmit() {
     const taskTitle = title.trim()
     if (taskTitle.length === 0) return
 
-    const task: TaskItem = {
-      id: uuidv4(),
-      completed: false,
-      title: taskTitle,
-      notes
+    if (taskIdToEdit) {
+      const updatedTask = tasks.find((task) => task.id === taskIdToEdit)!
+      updatedTask.title = title
+      updatedTask.dueAt = date ? date : undefined
+      updatedTask.notes = notes
+      saveTasks()
+    } else {
+      const task: TaskItem = {
+        id: uuidv4(),
+        completed: false,
+        title: taskTitle,
+        notes
+      }
+
+      if (date) {
+        console.log('we here')
+        task.dueAt = date
+      }
+
+      addTask(task)
+
+      setTitle('')
+      setNotes('')
+      setDate(null)
     }
-
-    if (date) {
-      console.log('we here')
-      task.dueAt = date
-    }
-
-    addTask(task)
-
-    setTitle('')
-    setNotes('')
-    setDate(null)
   }
 
   return (
@@ -70,9 +93,9 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal }) => {
       <DateDiv>
         <Text>Date</Text>
         <StyledSwitch
-          trackColor={{ false: '#767577', true: '#81b0ff' }}
-          thumbColor={isEnabled ? 'pink' : '#f4f3f4'}
-          ios_backgroundColor="#3e3e3e"
+          trackColor={{ false: 'red', true: '#282737' }}
+          thumbColor={isEnabled ? '#3e3a4e' : '#282737'}
+          ios_backgroundColor="#3e3a4e"
           onValueChange={() => {
             setIsEnabled(!isEnabled)
             !isEnabled && Keyboard.dismiss()
@@ -93,7 +116,7 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal }) => {
               setDate(selectedDate.toISOString())
             }
           }}
-          textColor="pink"
+          textColor="#cbc4bf"
         />
       )}
     </Wrapper>

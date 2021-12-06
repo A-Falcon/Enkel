@@ -1,12 +1,22 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import { AntDesign } from '@expo/vector-icons'
 
 interface FloatingActionButtonProps {
   onPress: VoidFunction
 }
 
 const FloatingActionButton: React.FC<FloatingActionButtonProps> = (props) => {
-  return <Wrapper onPress={props.onPress}></Wrapper>
+  return (
+    <Wrapper onPress={props.onPress}>
+      <AntDesign
+        name="plus"
+        size={50}
+        color="#cbc4bf"
+        style={{ alignSelf: 'center' }}
+      />
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.TouchableOpacity`
@@ -21,6 +31,9 @@ const Wrapper = styled.TouchableOpacity`
   shadow-color: black;
   shadow-opacity: 0.15;
   shadow-radius: 10px;
+  justify-content: center;
+  flex-direction: row;
 `
+const View = styled.View``
 
 export default FloatingActionButton
