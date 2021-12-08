@@ -22,10 +22,13 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-collapsible": "^1.6.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-reanimated": "~2.2.0",
     "react-native-web": "~0.13.12",
     "react-router-native": "^5.2.0",
+    "reanimated-collapsible-helpers": "^1.0.0",
     "styled-components": "^5.3.3",
     "uuid": "^3.4.0",
     "yup": "^0.32.9"

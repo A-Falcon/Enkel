@@ -34,7 +34,10 @@ const Task: React.FC<TaskProps> = ({ taskData, checkCompleted }) => {
         </Text>
       </ContentDiv>
       <Div>
-        <CheckBox checked={taskData.completed} onPress={checkCompleted} />
+        <CheckBox
+          checked={taskData.completed}
+          onPress={checkCompleted}
+        ></CheckBox>
       </Div>
     </Wrapper>
   )
@@ -55,6 +58,7 @@ const Wrapper = styled.View`
 const ContentDiv = styled.View`
   flex: 1;
   flex-direction: column;
+  justify-content: center;
 `
 const Div = styled.View`
   flex: 1;

@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { AntDesign } from '@expo/vector-icons'
+import {
+  AntDesign,
+  Ionicons,
+  Entypo,
+  SimpleLineIcons
+} from '@expo/vector-icons'
 
 interface FloatingActionButtonProps {
   onPress: VoidFunction
@@ -9,9 +14,9 @@ interface FloatingActionButtonProps {
 const FloatingActionButton: React.FC<FloatingActionButtonProps> = (props) => {
   return (
     <Wrapper onPress={props.onPress}>
-      <AntDesign
-        name="plus"
-        size={50}
+      <SimpleLineIcons
+        name="pencil"
+        size={30}
         color="#cbc4bf"
         style={{ alignSelf: 'center' }}
       />

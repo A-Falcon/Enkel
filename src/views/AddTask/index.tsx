@@ -3,9 +3,12 @@ import styled from 'styled-components/native'
 import { v4 as uuidv4 } from 'uuid'
 import { Switch, Keyboard } from 'react-native'
 import RNDateTimePicker from '@react-native-community/datetimepicker'
+// import { interpolate, Extrapolate } from 'react-native-reanimated'
+import Collapsible from 'react-native-collapsible'
 
 import AppContext from '~/AppContext'
 import { TaskItem } from '~/components/Task'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface AddTaskProps {
   closeModal: () => void
@@ -52,7 +55,7 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
       }
 
       if (date) {
-        console.log('we here')
+        // console.log('we here')
         task.dueAt = date
       }
 
@@ -66,33 +69,45 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
 
   return (
     <Wrapper>
-      <ButtonWrapper>
-        <Button onPress={closeModal}>
-          <Text>cancel</Text>
-        </Button>
-        <Button onPress={onSubmit}>
-          <Text>Add</Text>
-        </Button>
-      </ButtonWrapper>
-      <TextInput
-        value={title}
-        onChangeText={setTitle}
-        placeholder="Task Name"
-        placeholderTextColor="#cbc4bf"
-        returnKeyType="done"
-        // onSubmitEditing={onSubmit}
-      />
-      <TextInput
-        value={notes}
-        onChangeText={setNotes}
-        placeholder="Add notes..."
-        placeholderTextColor="#cbc4bf"
-        returnKeyType="done"
-        // onSubmitEditing={onSubmit}
-      />
-      <DateDiv>
-        <Text>Date</Text>
-        <StyledSwitch
+      <WrapperOne style={{ borderRadius: !isEnabled && 15 }}>
+        <ButtonWrapper>
+          <Button onPress={closeModal}>
+            <Text>cancel</Text>
+          </Button>
+          <Button onPress={onSubmit}>
+            <Text>Add</Text>
+          </Button>
+        </ButtonWrapper>
+        <TextInput
+          value={title}
+          onChangeText={setTitle}
+          placeholder="Task Name"
+          placeholderTextColor="#cbc4bf"
+          returnKeyType="done"
+          // onSubmitEditing={onSubmit}
+        />
+        <TextInput
+          value={notes}
+          onChangeText={setNotes}
+          placeholder="Add notes..."
+          placeholderTextColor="#cbc4bf"
+          returnKeyType="done"
+          // onSubmitEditing={onSubmit}
+        />
+        <DateDiv>
+          <Text>Date</Text>
+          <StyledSwitch
+            onValueChange={() => {
+              setIsEnabled(!isEnabled)
+              !isEnabled && Keyboard.dismiss()
+            }}
+            value={isEnabled}
+          />
+        </DateDiv>
+      </WrapperOne>
+      <Collapsible collapsed={!isEnabled}>
+        <WrapperTwo>
+          {/* <StyledSwitch
           trackColor={{ false: 'red', true: '#282737' }}
           thumbColor={isEnabled ? '#3e3a4e' : '#282737'}
           ios_backgroundColor="#3e3a4e"
@@ -101,35 +116,56 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
             !isEnabled && Keyboard.dismiss()
           }}
           value={isEnabled}
-        />
-      </DateDiv>
-      {isEnabled && (
-        <RNDateTimePicker
-          testID="dateTimePicker"
-          minimumDate={new Date()}
-          value={date ? new Date(date) : new Date()}
-          mode="date"
-          is24Hour={true}
-          display="spinner"
-          onChange={(event, selectedDate) => {
-            if (selectedDate) {
-              setDate(selectedDate.toISOString())
-            }
-          }}
-          textColor="#cbc4bf"
-        />
-      )}
+        /> */}
+
+          {/* {isEnabled && ( */}
+          <RNDateTimePicker
+            testID="dateTimePicker"
+            minimumDate={new Date()}
+            value={date ? new Date(date) : new Date()}
+            mode="date"
+            is24Hour={true}
+            display="spinner"
+            onChange={(event, selectedDate) => {
+              if (selectedDate) {
+                setDate(selectedDate.toISOString())
+              }
+            }}
+            textColor="#cbc4bf"
+          />
+
+          {/* )} */}
+        </WrapperTwo>
+      </Collapsible>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.View`
-  height: 475px;
+  height: 500px;
+  width: 300px;
+  /* background-color: ${(props) => props.theme.colors.primaryDark}; */
+  background-color: transparent;
+  border-radius: 10px;
+  /* padding: ${(props) => props.theme.spacing.unit * 0.15}px; */
+`
+const WrapperOne = styled.View`
+  height: 280px;
   width: 300px;
   background-color: ${(props) => props.theme.colors.primaryDark};
-  border-radius: 10px;
+  border-top-right-radius: ${(props) => props.theme.spacing.borderRadius};
+  border-top-left-radius: ${(props) => props.theme.spacing.borderRadius};
   padding: ${(props) => props.theme.spacing.unit * 0.15}px;
 `
+const WrapperTwo = styled.View`
+  height: 250px;
+  width: 300px;
+  background-color: ${(props) => props.theme.colors.primaryDark};
+  border-bottom-right-radius: ${(props) => props.theme.spacing.borderRadius};
+  border-bottom-left-radius: ${(props) => props.theme.spacing.borderRadius};
+  padding: ${(props) => props.theme.spacing.unit * 0.15}px;
+`
+
 const ButtonWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;

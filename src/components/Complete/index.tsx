@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { View } from 'react-native'
+import { Entypo } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface CheckBoxProps {
@@ -15,7 +16,16 @@ const CheckBox: React.FC<CheckBoxProps> = ({ checked, onPress }) => {
       style={{
         backgroundColor: checked ? '#655969' : '#282737'
       }}
-    ></Wrapper>
+    >
+      {checked && (
+        <Entypo
+          name="check"
+          size={20}
+          color="#cbc4bf"
+          style={{ alignSelf: 'center' }}
+        />
+      )}
+    </Wrapper>
   )
 }
 
@@ -26,6 +36,8 @@ const Wrapper = styled(TouchableOpacity)`
   /* border: 0.2px;
   border-color: white; */
   border-radius: 50px;
+  justify-content: center;
+  flex-direction: row;
 `
 
 // const Check = styled.View`
