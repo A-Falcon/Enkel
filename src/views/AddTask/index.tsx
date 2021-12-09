@@ -84,6 +84,8 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
           placeholder="Task Name"
           placeholderTextColor="#cbc4bf"
           returnKeyType="done"
+          multiline={true}
+          maxLength={50}
           // onSubmitEditing={onSubmit}
         />
         <TextInput
@@ -92,6 +94,9 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
           placeholder="Add notes..."
           placeholderTextColor="#cbc4bf"
           returnKeyType="done"
+          multiline={true}
+          maxLength={350}
+
           // onSubmitEditing={onSubmit}
         />
         <DateDiv>
@@ -142,24 +147,27 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
 }
 
 const Wrapper = styled.View`
-  height: 500px;
-  width: 300px;
+  height: 400px;
+  width: 325px;
   /* background-color: ${(props) => props.theme.colors.primaryDark}; */
   background-color: transparent;
   border-radius: 10px;
   /* padding: ${(props) => props.theme.spacing.unit * 0.15}px; */
 `
 const WrapperOne = styled.View`
-  height: 280px;
-  width: 300px;
+  /* height: 280px; */
+  height: auto;
+  max-height: 400px;
+  width: 325px;
   background-color: ${(props) => props.theme.colors.primaryDark};
   border-top-right-radius: ${(props) => props.theme.spacing.borderRadius};
   border-top-left-radius: ${(props) => props.theme.spacing.borderRadius};
   padding: ${(props) => props.theme.spacing.unit * 0.15}px;
+  margin-bottom: -13px;
 `
 const WrapperTwo = styled.View`
   height: 250px;
-  width: 300px;
+  width: 325px;
   background-color: ${(props) => props.theme.colors.primaryDark};
   border-bottom-right-radius: ${(props) => props.theme.spacing.borderRadius};
   border-bottom-left-radius: ${(props) => props.theme.spacing.borderRadius};
@@ -185,9 +193,12 @@ const DateDiv = styled.View`
 const StyledSwitch = styled(Switch)``
 
 const TextInput = styled.TextInput`
+  /* flex: 1; */
   color: ${(props) => props.theme.colors.text};
   background-color: ${(props) => props.theme.colors.primary};
   height: ${(props) => props.theme.spacing.unit}px;
+  max-height: 100px;
+  height: auto;
   padding: ${(props) => props.theme.spacing.unit * 0.25}px;
   border-radius: ${(props) => props.theme.spacing.borderRadius};
   margin-bottom: ${(props) => props.theme.spacing.unit * 0.15}px;

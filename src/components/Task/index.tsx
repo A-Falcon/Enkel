@@ -22,8 +22,12 @@ const Task: React.FC<TaskProps> = ({ taskData, checkCompleted }) => {
   return (
     <Wrapper>
       <ContentDiv>
-        <TitleText>{taskData.title}</TitleText>
-        <NoteText>{taskData.notes}</NoteText>
+        <TitleText ellipsizeMode="tail" numberOfLines={1}>
+          {taskData.title}
+        </TitleText>
+        <NoteText ellipsizeMode="tail" numberOfLines={1}>
+          {taskData.notes}
+        </NoteText>
         <Text>
           {taskData.dueAt && (
             <>
@@ -46,6 +50,8 @@ const Task: React.FC<TaskProps> = ({ taskData, checkCompleted }) => {
 const Wrapper = styled.View`
   background-color: ${(props) => props.theme.colors.secondary};
   border-radius: ${(props) => props.theme.spacing.borderRadius};
+  height: 100px;
+  /* max-height:100px; */
   padding: 20px;
   margin: 5px;
   margin-left: 10px;
@@ -56,7 +62,7 @@ const Wrapper = styled.View`
 `
 
 const ContentDiv = styled.View`
-  flex: 1;
+  flex: 5;
   flex-direction: column;
   justify-content: center;
 `

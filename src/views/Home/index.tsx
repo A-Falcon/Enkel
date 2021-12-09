@@ -3,11 +3,11 @@ import { Animated, StyleSheet, View } from 'react-native'
 import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { withTheme } from 'react-native-elements'
+import { AntDesign, Feather, FontAwesome } from '@expo/vector-icons'
 
 import Task, { TaskItem } from '~/components/Task'
 import AppContext from '~/AppContext'
-import { withTheme } from 'react-native-elements'
-import { AntDesign, Feather, FontAwesome } from '@expo/vector-icons'
 
 const Home: React.FC<TaskItem> = () => {
   const { tasks, removeTask, openEditModal, checkCompleted } = useContext(
@@ -35,34 +35,35 @@ const Home: React.FC<TaskItem> = () => {
       >
         <RectButton
           style={{
-            backgroundColor: '#e64c56',
-            borderRadius: 15,
-            // margin: '6px, 6px, 6px, 0px'
-            flex: 1,
-            marginRight: 10,
-            justifyContent: 'center'
-          }}
-          onPress={() => removeTask(taskId)}
-        >
-          <Feather
-            name="trash-2"
-            size={50}
-            color="#cbc4bf"
-            style={{
-              alignSelf: 'center'
-            }}
-          />
-        </RectButton>
-        <RectButton
-          style={{
-            backgroundColor: '#526EAB',
+            backgroundColor: '#655969',
             borderRadius: 15,
             flex: 1,
             justifyContent: 'center'
           }}
           onPress={() => openEditModal(taskId)}
         >
-          <EditText>Edit</EditText>
+          <EditText>Details</EditText>
+        </RectButton>
+
+        <RectButton
+          style={{
+            backgroundColor: '#6B3741',
+            borderRadius: 15,
+            // margin: '6px, 6px, 6px, 0px'
+            flex: 1,
+            marginLeft: 10,
+            justifyContent: 'center'
+          }}
+          onPress={() => removeTask(taskId)}
+        >
+          <Feather
+            name="trash-2"
+            size={30}
+            color="#cbc4bf"
+            style={{
+              alignSelf: 'center'
+            }}
+          />
         </RectButton>
       </View>
     )
@@ -135,7 +136,7 @@ const Text = styled.Text`
   margin: ${(props) => props.theme.spacing.unit * 1.5}px;
 `
 const EditText = styled.Text`
-  font-size: 30px;
+  font-size: 16px;
   color: #cbc4bf;
   align-self: center;
 `
