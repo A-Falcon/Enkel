@@ -16,7 +16,7 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = (props) => {
     <Wrapper onPress={props.onPress}>
       <SimpleLineIcons
         name="pencil"
-        size={30}
+        size={25}
         color="#cbc4bf"
         style={{ alignSelf: 'center' }}
       />

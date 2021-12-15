@@ -185,7 +185,7 @@ const DateDiv = styled.View`
   padding: ${(props) => props.theme.spacing.unit * 0.25}px;
   border-radius: ${(props) => props.theme.spacing.borderRadius};
   margin-bottom: ${(props) => props.theme.spacing.unit * 0.25}px;
-  margin-top: ${(props) => props.theme.spacing.unit * 0.25}px;
+  /* margin-top: ${(props) => props.theme.spacing.unit * 0.25}px; */
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -199,6 +199,7 @@ const TextInput = styled.TextInput`
   height: ${(props) => props.theme.spacing.unit}px;
   max-height: 100px;
   height: auto;
+  min-height: 60px;
   padding: ${(props) => props.theme.spacing.unit * 0.25}px;
   border-radius: ${(props) => props.theme.spacing.borderRadius};
   margin-bottom: ${(props) => props.theme.spacing.unit * 0.15}px;
