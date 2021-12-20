@@ -39,6 +39,5 @@ const Wrapper = styled.TouchableOpacity`
   justify-content: center;
   flex-direction: row;
 `
-const View = styled.View``
 
 export default FloatingActionButton
