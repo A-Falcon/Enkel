@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import Link, { useHistory } from 'react-router-native'
 import { Auth } from 'aws-amplify'
-import TextInput from '~/components/form/TextInput'
+import TextInput from '~/components/Form/AuthTextInput'
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
