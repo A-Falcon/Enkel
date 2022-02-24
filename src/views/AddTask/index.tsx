@@ -7,6 +7,7 @@ import Collapsible from 'react-native-collapsible'
 
 import AppContext from '~/AppContext'
 import { TaskItem } from '~/components/Task'
+import FormButton from '~/components/Form/Button'
 import { updateTask } from '~/graphql/mutations'
 
 
@@ -72,12 +73,8 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
   <KeyboardAvoidingView style={{ flex: .5 }}>
     <Wrapper>
         <ButtonWrapper>
-          <Button onPress={closeModal}>
-            <Text>Cancel</Text>
-          </Button>
-          <Button onPress={onSubmit} style={{ justifyContent: 'flex-end'}}>
-            <Text>Add</Text>
-          </Button>
+          <FormButton label={'Cancel'} onPress={closeModal} />
+          <FormButton label={'Add'} onPress={onSubmit} style={{alignItems: 'flex-end'}} />
         </ButtonWrapper>
         <TextInput
           value={title}
@@ -165,19 +162,9 @@ const TextInput = styled.TextInput`
   margin-bottom: ${(props) => props.theme.spacing.unit * 0.15}px;
 `
 
-const Button = styled.TouchableOpacity`
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 100px;
-  
-  height: ${(p) => p.theme.spacing.unit / 2}px;
-
-`
-
 const Text = styled.Text`
   align-self: center;
   font-size: 15px;
-  
   color: ${(p) => p.theme.colors.text};
 `
 
