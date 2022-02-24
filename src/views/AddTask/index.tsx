@@ -31,7 +31,8 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
 
       const task = tasks[taskToEditIndex]
       setTitle(task.title)
-      setNotes(task.notes)
+      // setNotes(task.notes)
+      task.notes && setNotes(task.notes)
       task.dueAt && setDate(task.dueAt)
     }
   }, [])

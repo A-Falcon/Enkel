@@ -8,7 +8,7 @@ export interface TaskItem {
   id: string
   title: string
   completed: boolean
-  notes: string
+  notes?: string
   dueAt?: string
 }
 
@@ -31,32 +31,36 @@ const Task: React.FC<TaskProps> = ({ taskData, checkCompleted }) => {
         {isCollapsed ? (
           <ContentDiv>
             <TitleText ellipsizeMode="tail">{taskData.title}</TitleText>
-            <NoteText ellipsizeMode="tail">{taskData.notes}</NoteText>
-            <DateText>
-              {taskData.dueAt && (
-                <>
-                  <AntDesign name="calendar" size={24} color="#cbc4bf" />
-                  {new Date(taskData.dueAt).toDateString()}
-                </>
-              )}
-            </DateText>
+
+            {taskData.notes 
+              ? <NoteText ellipsizeMode="tail">{taskData.notes}</NoteText> 
+              : null
+            }
+
+            {taskData.dueAt && (
+              <DateText>
+                <AntDesign name="calendar" size={24} color="#cbc4bf" />
+                {new Date(taskData.dueAt).toDateString()}
+              </DateText>
+             )}
           </ContentDiv>
         ) : (
           <ContentDiv>
             <TitleText ellipsizeMode="tail" numberOfLines={1}>
               {taskData.title}
             </TitleText>
-            <NoteText ellipsizeMode="tail" numberOfLines={1}>
-              {taskData.notes}
-            </NoteText>
-            <DateText>
-              {taskData.dueAt && (
-                <>
-                  <AntDesign name="calendar" size={24} color="#cbc4bf" />
-                  {new Date(taskData.dueAt).toDateString()}
-                </>
-              )}
-            </DateText>
+
+            {taskData.notes
+             ? <NoteText ellipsizeMode="tail" numberOfLines={1}>{taskData.notes}</NoteText>
+             : null
+            }
+
+            {taskData.dueAt && (
+              <DateText>
+                <AntDesign name="calendar" size={24} color="#cbc4bf" />
+                {new Date(taskData.dueAt).toDateString()} 
+              </DateText>
+            )}
           </ContentDiv>
         )}
         <Div>
