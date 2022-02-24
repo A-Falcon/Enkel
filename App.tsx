@@ -12,12 +12,10 @@ Amplify.configure(config)
 import Routes from '~/Routes'
 import theme from '~/theme'
 import { TaskItem } from '~/components/Task'
-import Home from './src/views/Home'
 
 import AppContext from '~/AppContext'
 import AddTask from '~/views/AddTask'
 import FloatingActionButton from '~/components/FloatingActionButton'
-import { AntDesign } from '@expo/vector-icons'
 
 const TASKS_KEY = 'TASKS'
 

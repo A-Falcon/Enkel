@@ -82,10 +82,7 @@ const Home: React.FC<TaskItem> = () => {
         tasks.map((task) => (
           <StyledSwipeable
             key={task.id}
-            friction={1.5}
-            // rightThreshold={100}
-            // rightThreshold={1}
-            // overshootRight={false}
+            friction={1}
             renderRightActions={(...ra) => renderRightActions(task.id, ...ra)}
           >
             <Task
@@ -94,7 +91,7 @@ const Home: React.FC<TaskItem> = () => {
               checkCompleted={() => checkCompleted(task.id)}
             />
           </StyledSwipeable>
-        ))
+        )).reverse()
       )}
     </Wrapper>
   )
@@ -102,10 +99,10 @@ const Home: React.FC<TaskItem> = () => {
 
 const StyledSwipeable = styled(Swipeable)``
 
-const ButtonWrapper = styled.View`
-  background-color: transparent;
-  flex: 1;
-`
+// const ButtonWrapper = styled.View`
+//   background-color: transparent;
+//   flex: 1;
+// `
 
 const Wrapper = styled.ScrollView`
   flex: 1;

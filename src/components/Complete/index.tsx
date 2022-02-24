@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components/native'
-import { View } from 'react-native'
-import { Entypo } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Entypo } from '@expo/vector-icons'
+
 
 interface CheckBoxProps {
   checked: boolean
@@ -30,18 +30,12 @@ const CheckBox: React.FC<CheckBoxProps> = ({ checked, onPress }) => {
 }
 
 const Wrapper = styled(TouchableOpacity)`
-  background-color: transparent;
+  flex-direction: row; 
+  justify-content: center;
   height: 35px;
   width: 35px;
-  /* border: 0.2px;
-  border-color: white; */
+  background-color: transparent;
   border-radius: 50px;
-  justify-content: center;
-  flex-direction: row;
 `
-
-// const Check = styled.View`
-//   background-color: red;
-// `
 
 export default CheckBox
