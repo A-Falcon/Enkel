@@ -11,12 +11,13 @@ interface CheckBoxProps {
 
 const CheckBox: React.FC<CheckBoxProps> = ({ checked, onPress }) => {
   return (
-    <Wrapper
-      onPress={onPress}
-      style={{
-        backgroundColor: checked ? '#655969' : '#282737'
-      }}
-    >
+    <Wrapper>
+      <StyledTouchableOpacity
+        onPress={onPress}
+        style={{
+          backgroundColor: checked ? '#655969' : '#282737'
+        }}
+      >
       {checked && (
         <Entypo
           name="check"
@@ -25,17 +26,23 @@ const CheckBox: React.FC<CheckBoxProps> = ({ checked, onPress }) => {
           style={{ alignSelf: 'center' }}
         />
       )}
+      </StyledTouchableOpacity>
     </Wrapper>
   )
 }
 
-const Wrapper = styled(TouchableOpacity)`
+const StyledTouchableOpacity = styled(TouchableOpacity)`
   flex-direction: row; 
   justify-content: center;
   height: 35px;
   width: 35px;
   background-color: transparent;
   border-radius: 50px;
+`
+const Wrapper = styled.View`
+  flex: 1;
+  flex-direction: row-reverse;
+  align-self: center;
 `
 
 export default CheckBox
