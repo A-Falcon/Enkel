@@ -8,7 +8,10 @@ import Collapsible from 'react-native-collapsible'
 import AppContext from '~/AppContext'
 import { TaskItem } from '~/components/Task'
 import FormButton from '~/components/Form/Button'
+import FormSwitch from '~/components/Form/Switch'
+import SelectDate from '~/components/Form/SelectDate'
 import { updateTask } from '~/graphql/mutations'
+
 
 
 interface AddTaskProps {
@@ -94,32 +97,20 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
           multiline={true}
           maxLength={350}
         />
-        <DateDiv>
-          <Text>Date</Text>
-          <StyledSwitch
-            onValueChange={() => {
+        <FormSwitch label={'Date'} value={isEnabled} onValueChange={() => {
               setIsEnabled(!isEnabled)
               !isEnabled && Keyboard.dismiss()
             }}
-            value={isEnabled}
           />
-        </DateDiv>
-      <Collapsible collapsed={!isEnabled}>
-          <RNDateTimePicker
-            testID="dateTimePicker"
-            minimumDate={new Date()}
+          <SelectDate
+            collapsed={!isEnabled}
             value={date ? new Date(date) : new Date()}
-            mode="date"
-            is24Hour={true}
-            display="spinner"
             onChange={(event, selectedDate) => {
               if (selectedDate) {
                 setDate(selectedDate.toISOString())
               }
             }}
-            textColor="#cbc4bf"
           />       
-      </Collapsible>
     </Wrapper>
     </KeyboardAvoidingView>
   )
