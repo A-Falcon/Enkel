@@ -10,6 +10,7 @@ import { TaskItem } from '~/components/Task'
 import FormButton from '~/components/Form/Button'
 import FormSwitch from '~/components/Form/Switch'
 import SelectDate from '~/components/Form/SelectDate'
+import TaskInput from '~/components/Form/TaskTextInput'
 import { updateTask } from '~/graphql/mutations'
 
 
@@ -79,22 +80,16 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
           <FormButton label={'Cancel'} onPress={closeModal} />
           <FormButton label={'Add'} onPress={onSubmit} style={{alignItems: 'flex-end'}} />
         </ButtonWrapper>
-        <TextInput
-          value={title}
+        <TaskInput
+          label={title}
           onChangeText={setTitle}
-          placeholder="Task Name"
-          placeholderTextColor="#cbc4bf"
-          returnKeyType="done"
-          multiline={true}
+          placeholder={"Task Name"}
           maxLength={50}
         />
-        <TextInput
-          value={notes}
+        <TaskInput
+          label={notes}
           onChangeText={setNotes}
-          placeholder="Add notes..."
-          placeholderTextColor="#cbc4bf"
-          returnKeyType="done"
-          multiline={true}
+          placeholder={"Add notes..."}
           maxLength={350}
         />
         <FormSwitch label={'Date'} value={isEnabled} onValueChange={() => {
@@ -129,34 +124,20 @@ const ButtonWrapper = styled.View`
   justify-content: space-between;
   margin: 5px;
 `
-const DateDiv = styled.View`
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.primary};
-  padding: ${(props) => props.theme.spacing.unit * 0.25}px;
-  border-radius: ${(props) => props.theme.spacing.borderRadius};
-  margin-bottom: ${(props) => props.theme.spacing.unit * 0.25}px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`
-const StyledSwitch = styled(Switch)``
 
-const TextInput = styled.TextInput`
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.primary};
-  height: ${(props) => props.theme.spacing.unit}px;
-  max-height: 100px;
-  height: auto;
-  min-height: 60px;
-  padding: ${(props) => props.theme.spacing.unit * 0.25}px;
-  border-radius: ${(props) => props.theme.spacing.borderRadius};
-  margin-bottom: ${(props) => props.theme.spacing.unit * 0.15}px;
-`
 
-const Text = styled.Text`
-  align-self: center;
-  font-size: 15px;
-  color: ${(p) => p.theme.colors.text};
-`
+// const TextInput = styled.TextInput`
+//   color: ${(props) => props.theme.colors.text};
+//   background-color: ${(props) => props.theme.colors.primary};
+//   height: ${(props) => props.theme.spacing.unit}px;
+//   max-height: 100px;
+//   height: auto;
+//   min-height: 60px;
+//   padding: ${(props) => props.theme.spacing.unit * 0.25}px;
+//   border-radius: ${(props) => props.theme.spacing.borderRadius};
+//   margin-bottom: ${(props) => props.theme.spacing.unit * 0.15}px;
+// `
+
+
 
 export default AddTask
