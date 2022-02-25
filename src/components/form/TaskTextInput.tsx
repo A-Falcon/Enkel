@@ -1,9 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components/native'
 
-import AppContext from '~/AppContext'
-import { TaskItem } from '~/components/Task'
-
 
 interface TaskInputProps {
   label: string

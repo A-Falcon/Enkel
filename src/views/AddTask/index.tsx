@@ -1,19 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
-import styled from 'styled-components/native'
 import { v4 as uuidv4 } from 'uuid'
-import { Switch, Keyboard, KeyboardAvoidingView } from 'react-native'
-import RNDateTimePicker from '@react-native-community/datetimepicker'
-import Collapsible from 'react-native-collapsible'
+import {  KeyboardAvoidingView } from 'react-native'
 
 import AppContext from '~/AppContext'
 import { TaskItem } from '~/components/Task'
-import FormButton from '~/components/Form/Button'
-import FormSwitch from '~/components/Form/Switch'
-import SelectDate from '~/components/Form/SelectDate'
-import TaskInput from '~/components/Form/TaskTextInput'
-import { updateTask } from '~/graphql/mutations'
-
-
+import FormInput from '~/components/Form'
 
 interface AddTaskProps {
   closeModal: () => void
@@ -75,69 +66,21 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
 
   return (
   <KeyboardAvoidingView style={{ flex: .5 }}>
-    <Wrapper>
-        <ButtonWrapper>
-          <FormButton label={'Cancel'} onPress={closeModal} />
-          <FormButton label={'Add'} onPress={onSubmit} style={{alignItems: 'flex-end'}} />
-        </ButtonWrapper>
-        <TaskInput
-          label={title}
-          onChangeText={setTitle}
-          placeholder={"Task Name"}
-          maxLength={50}
-        />
-        <TaskInput
-          label={notes}
-          onChangeText={setNotes}
-          placeholder={"Add notes..."}
-          maxLength={350}
-        />
-        <FormSwitch label={'Date'} value={isEnabled} onValueChange={() => {
-              setIsEnabled(!isEnabled)
-              !isEnabled && Keyboard.dismiss()
-            }}
-          />
-          <SelectDate
-            collapsed={!isEnabled}
-            value={date ? new Date(date) : new Date()}
-            onChange={(event, selectedDate) => {
-              if (selectedDate) {
-                setDate(selectedDate.toISOString())
-              }
-            }}
-          />       
-    </Wrapper>
+    <FormInput
+        closeModal={closeModal}
+        onSubmit={onSubmit}
+        title={title}
+        setTitle={setTitle} 
+        notes={notes} 
+        setNotes={setNotes} 
+        isEnabled={isEnabled} 
+        setIsEnabled={setIsEnabled}
+        date={date}
+        setDate={setDate}
+    />
     </KeyboardAvoidingView>
   )
 }
-
-const Wrapper = styled.View`
-  height: auto;
-  width: 325px;
-  padding: ${(props) => props.theme.spacing.unit * 0.15}px;
-  background-color: ${(props) => props.theme.colors.primaryDark};
-  border-radius: ${(props) => props.theme.spacing.borderRadius};
-`
-
-const ButtonWrapper = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 5px;
-`
-
-
-// const TextInput = styled.TextInput`
-//   color: ${(props) => props.theme.colors.text};
-//   background-color: ${(props) => props.theme.colors.primary};
-//   height: ${(props) => props.theme.spacing.unit}px;
-//   max-height: 100px;
-//   height: auto;
-//   min-height: 60px;
-//   padding: ${(props) => props.theme.spacing.unit * 0.25}px;
-//   border-radius: ${(props) => props.theme.spacing.borderRadius};
-//   margin-bottom: ${(props) => props.theme.spacing.unit * 0.15}px;
-// `
-
 
 
 export default AddTask
