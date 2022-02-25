@@ -36,8 +36,15 @@ const FormInput:React.FC<FormInputProps> = ({
   return (
     <Wrapper>
         <ButtonWrapper>
-          <FormButton label={'Cancel'} onPress={closeModal} />
-          <FormButton label={'Add'} onPress={onSubmit} style={{alignItems: 'flex-end'}} />
+          <FormButton 
+            label={'Cancel'} 
+            onPress={closeModal} 
+          />
+          <FormButton 
+            label={'Add'} 
+            onPress={onSubmit} 
+            style={{alignItems: 'flex-end'}} 
+          />
         </ButtonWrapper>
         <TaskInput
           label={title}
@@ -51,20 +58,24 @@ const FormInput:React.FC<FormInputProps> = ({
           placeholder={"Add notes..."}
           maxLength={350}
         />
-        <FormSwitch label={'Date'} value={isEnabled} onValueChange={() => {
-              setIsEnabled(!isEnabled)
-              !isEnabled && Keyboard.dismiss()
-            }}
-          />
-          <SelectDate
-            collapsed={!isEnabled}
-            value={date ? new Date(date) : new Date()}
-            onChange={(event, selectedDate) => {
-              if (selectedDate) {
-                setDate(selectedDate.toISOString())
-              }
-            }}
-          />       
+        <FormSwitch 
+          label={'Date'} 
+          value={isEnabled} 
+          onValueChange={() => {
+            setIsEnabled(!isEnabled)
+            !isEnabled && Keyboard.dismiss()
+          }}
+         />
+        <SelectDate
+          collapsed={!isEnabled}
+          value={date ? new Date(date) : new Date()}
+          //@ts-ignore
+          onChange={(event, selectedDate) => {
+            if (selectedDate) {
+              setDate(selectedDate.toISOString())
+            }
+          }}
+        />       
     </Wrapper>
   )
 }
