@@ -13,13 +13,16 @@ const Content:React.FC<ContentProps>= ({title, notes, dueAt, numberOfLines}) => 
   
   return (
     <Wrapper>
+      {/* Task Title */}
       <TitleText ellipsizeMode="tail" numberOfLines={numberOfLines || undefined}>{title}</TitleText>
 
+      {/* Task Notes */}
       {notes 
         ? <NoteText ellipsizeMode="tail" numberOfLines={numberOfLines || undefined}>{notes}</NoteText> 
         : null
       }
-
+      
+      {/* Task DueAt */}
       {dueAt && (
         <DateText>
           <AntDesign name="calendar" size={24} color="#cbc4bf" />
