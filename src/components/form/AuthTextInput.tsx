@@ -6,6 +6,12 @@ import {
 import styled from 'styled-components/native'
 import { FormikProps } from 'formik'
 
+
+
+// NOT YET IMPLEMENTED.
+// CURRENT: LOCAL DATA PERSISTENCE ONLY
+
+
 interface TextInputProps extends RNTextInputProps {
   formik: FormikProps<any>
   formikKey: string
