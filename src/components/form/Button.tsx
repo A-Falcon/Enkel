@@ -6,28 +6,23 @@ interface ButtonProps {
   label: string
   style?: Object
 }
-const FormButton:React.FC<ButtonProps>= ({onPress, label, style}) => {
+const Button:React.FC<ButtonProps>= ({onPress, label, style}) => {
   return (
-    <Wrapper style={style}>
-      <Button onPress={onPress}>
+    <Wrapper onPress={onPress} style={style}>
         <Text>{label}</Text>
-      </Button>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
   height: ${(p) => p.theme.spacing.unit * .6}px;
   width: 100px;
-`
-const Button = styled.TouchableOpacity`
-
 `
 const Text = styled.Text`
   align-self: center;
   font-size: 15px;
   color: ${(p) => p.theme.colors.text};
 `
-export default FormButton
+export default Button
