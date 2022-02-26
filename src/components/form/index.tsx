@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 import {  Keyboard  } from 'react-native'
 
-import FormButton from '~/components/Form/Button'
+import Button from '~/components/Form/Button'
 import FormSwitch from '~/components/Form/Switch'
 import SelectDate from '~/components/Form/SelectDate'
 import TaskInput from '~/components/Form/TaskTextInput'
@@ -36,14 +36,14 @@ const FormInput:React.FC<FormInputProps> = ({
   return (
     <Wrapper>
         <ButtonWrapper>
-          <FormButton 
+          <Button 
             label={'Cancel'} 
             onPress={closeModal} 
           />
-          <FormButton 
+          <Button 
             label={'Add'} 
             onPress={onSubmit} 
-            style={{alignItems: 'flex-end'}} 
+            style={{justifyContent: 'flex-end'}} 
           />
         </ButtonWrapper>
         <TaskInput
