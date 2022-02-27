@@ -1,11 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import {
-  AntDesign,
-  Ionicons,
-  Entypo,
-  SimpleLineIcons
-} from '@expo/vector-icons'
+import { SimpleLineIcons } from '@expo/vector-icons'
 
 interface FloatingActionButtonProps {
   onPress: VoidFunction

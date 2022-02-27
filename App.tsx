@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import styled, { ThemeProvider } from 'styled-components/native'
 import { NativeRouter, BackButton } from 'react-router-native'
@@ -113,10 +113,10 @@ export default function App() {
                   backgroundColor: 'transparent'
                 }}
               >
-                <AddTask
-                  closeModal={closeTaskModal}
-                  taskIdToEdit={taskIdToEdit}
-                />
+              <AddTask
+                closeModal={closeTaskModal}
+                taskIdToEdit={taskIdToEdit}
+              />
               </Overlay>
               <FloatingActionButton onPress={() => setModalVisible(true)} />
             </SafeAreaView>

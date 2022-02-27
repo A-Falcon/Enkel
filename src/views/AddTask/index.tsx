@@ -65,20 +65,20 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
   }
 
   return (
-  <KeyboardAvoidingView style={{ flex: .5 }}>
-    <FormInput
-        closeModal={closeModal}
-        onSubmit={onSubmit}
-        title={title}
-        setTitle={setTitle} 
-        notes={notes} 
-        setNotes={setNotes} 
-        isEnabled={isEnabled} 
-        setIsEnabled={setIsEnabled}
-        date={date}
-        setDate={setDate}
-    />
-    </KeyboardAvoidingView>
+    <KeyboardAvoidingView style={{ flex: .5 }}>
+      <FormInput
+          closeModal={closeModal}
+          onSubmit={onSubmit}
+          title={title}
+          setTitle={setTitle} 
+          notes={notes} 
+          setNotes={setNotes} 
+          isEnabled={isEnabled} 
+          setIsEnabled={setIsEnabled}
+          date={date}
+          setDate={setDate}
+      />
+      </KeyboardAvoidingView>
   )
 }
 

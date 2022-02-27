@@ -51,7 +51,6 @@ const Wrapper = styled.ScrollView`
 `
 const EmptyView = styled.View`
   display: flex;
-  /* background-color: pink; */
   align-self: center;
   margin-top: 180px;
 `

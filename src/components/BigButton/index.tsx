@@ -12,7 +12,6 @@ const BigButton: React.FC<BigButtonProps>= ({onPress, label, style, children }) 
   return (
     <Wrapper onPress={onPress} style={style}>
       {children ?? <Text>{label}</Text>}
-      
     </Wrapper>
   )
 }
