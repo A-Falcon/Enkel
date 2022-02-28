@@ -6,6 +6,7 @@ import Amplify from 'aws-amplify'
 import { AsyncStorage } from 'react-native'
 import { Overlay } from 'react-native-elements'
 
+
 import config from './src/aws-exports'
 Amplify.configure(config)
 
@@ -16,6 +17,7 @@ import { TaskItem } from '~/components/Task'
 import AppContext from '~/AppContext'
 import AddTask from '~/views/AddTask'
 import FloatingActionButton from '~/components/FloatingActionButton'
+import { set, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
 const TASKS_KEY = 'TASKS'
 
@@ -86,6 +88,7 @@ export default function App() {
     setTasksOnStorage(updatedTaskList)
   }
 
+
   return (
     <AppContext.Provider
       value={{
@@ -113,10 +116,10 @@ export default function App() {
                   backgroundColor: 'transparent'
                 }}
               >
-              <AddTask
-                closeModal={closeTaskModal}
-                taskIdToEdit={taskIdToEdit}
-              />
+                <AddTask
+                  closeModal={closeTaskModal}
+                  taskIdToEdit={taskIdToEdit}
+                />
               </Overlay>
               <FloatingActionButton onPress={() => setModalVisible(true)} />
             </SafeAreaView>

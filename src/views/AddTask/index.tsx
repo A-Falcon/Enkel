@@ -9,6 +9,7 @@ import FormInput from '~/components/Form'
 interface AddTaskProps {
   closeModal: () => void
   taskIdToEdit: string | null
+  style?: any
 }
 
 const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {

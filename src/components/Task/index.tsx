@@ -45,11 +45,10 @@ const Task: React.FC<TaskProps> = ({ taskData, checkCompleted }) => {
   )
 }
 
-
 const StyledTouchable = styled(TouchableOpacity)`
   background-color: ${(props) => props.theme.colors.secondary};
   border-radius: ${(props) => props.theme.spacing.borderRadius};
-  min-height: 100px;
+  min-height: 115px;
   height: auto;
   padding: 20px;
   margin: 5px;
@@ -57,28 +56,5 @@ const StyledTouchable = styled(TouchableOpacity)`
   margin-right: 10px;
   flex-direction: row;
 `
-// const ContentDiv = styled.View`
-//   flex: 5;
-//   flex-direction: column;
-//   justify-content: center;
-// `
-const Div = styled.View`
-  flex: 1;
-  flex-direction: row-reverse;
-  align-self: center;
-`
-// const DateText = styled.Text`
-//   font-size: 16px;
-//   color: ${(props) => props.theme.colors.text};
-// `
-// const TitleText = styled.Text`
-//   font-size: 20px;
-//   font-weight: bold;
-//   color: ${(props) => props.theme.colors.text};
-// `
-// const NoteText = styled.Text`
-//   font-size: 16px;
-//   color: ${(props) => props.theme.colors.subText};
-// `
 
 export default Task
