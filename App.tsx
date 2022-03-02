@@ -88,7 +88,6 @@ export default function App() {
     setTasksOnStorage(updatedTaskList)
   }
 
-
   return (
     <AppContext.Provider
       value={{

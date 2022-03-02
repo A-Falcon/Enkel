@@ -1,10 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import styled from 'styled-components/native'
 import {  KeyboardAvoidingView } from 'react-native'
 
 import AppContext from '~/AppContext'
 import { TaskItem } from '~/components/Task'
 import FormInput from '~/components/Form'
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
 interface AddTaskProps {
   closeModal: () => void
@@ -18,8 +20,10 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
   const [notes, setNotes] = useState('')
   const [isEnabled, setIsEnabled] = useState(false)
   const [date, setDate] = useState<null | string>(null)
+  const offset = useSharedValue(1000);
 
   useEffect(() => {
+    offset.value = withSpring(0, { damping: 15, stiffness: 85, velocity: 10 });
     if (taskIdToEdit) {
       const taskToEditIndex = tasks.findIndex(
         (task) => task.id === taskIdToEdit
@@ -65,8 +69,16 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
     }
   }
 
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: offset.value }],
+    };
+  });
+
   return (
-    <KeyboardAvoidingView style={{ flex: .5 }}>
+    <KeyboardAvoidingView style={{flex: .5}}>
+    <Animated.View style={animatedStyle}>
       <FormInput
           closeModal={closeModal}
           onSubmit={onSubmit}
@@ -79,7 +91,8 @@ const AddTask: React.FC<AddTaskProps> = ({ closeModal, taskIdToEdit }) => {
           date={date}
           setDate={setDate}
       />
-      </KeyboardAvoidingView>
+    </Animated.View>
+    </KeyboardAvoidingView>
   )
 }
 

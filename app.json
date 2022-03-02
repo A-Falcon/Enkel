@@ -4,11 +4,11 @@
     "slug": "enkel",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/enkel-appStore-icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/enkel-splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#282737"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
